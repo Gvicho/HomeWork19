@@ -1,5 +1,6 @@
 package com.example.homework18.di
 
+import com.example.homework18.data.common.HandleResponse
 import com.example.homework18.data.repository_Impl.UserDetailsRepositoryImpl
 import com.example.homework18.data.repository_Impl.UserListRepositoryImpl
 import com.example.homework18.data.services.UserDetailsService
@@ -18,17 +19,19 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideUserListRepository(usersListService: UsersListService): UsersListRepository{
+    fun provideUserListRepository(usersListService: UsersListService , handleResponse: HandleResponse): UsersListRepository{
         return UserListRepositoryImpl(
-            usersListService = usersListService
+            usersListService = usersListService,
+            handleResponse = handleResponse
         )
     }
 
     @Singleton
     @Provides
-    fun provideUserDetailsRepository(userDetailsService: UserDetailsService): UserDetailsRepository{
+    fun provideUserDetailsRepository(userDetailsService: UserDetailsService, handleResponse: HandleResponse): UserDetailsRepository{
         return UserDetailsRepositoryImpl(
-            userDetailsService = userDetailsService
+            userDetailsService = userDetailsService,
+            handleResponse = handleResponse
         )
     }
 }
