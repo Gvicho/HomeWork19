@@ -5,4 +5,5 @@
     <string name="emptyfirstname">EmptyFirstName</string>
     <string name="emptylastname">EmptyLastName</string>
     <string name="emptyemail">EmptyEmail</string>
+    <string name="users">Users</string>
 </resources>

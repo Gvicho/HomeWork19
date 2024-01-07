@@ -4,23 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.homepage.HomePageFragment">
+    tools:context=".presenter.homepage.HomePageFragment"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/reloadBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_refresh32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/users"
+        android:textAppearance="@style/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/reloadBtn"
+        app:layout_constraintBottom_toBottomOf="@id/reloadBtn"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_remove_users32"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/reloadBtn"
+        app:layout_constraintBottom_toBottomOf="@id/reloadBtn"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/reloadBtn"
+        android:layout_marginTop="20dp"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/usersRecycler"
+        android:layout_marginTop="10dp"
         android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

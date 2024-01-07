@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.homework18.databinding.FragmentUserDetailsBinding
 import com.example.homework18.presenter.common.BaseFragment
-import com.example.homework18.presenter.common.User
+import com.example.homework18.presenter.model_presenter.UserPresenter
 import com.example.test6.data.common.ResultWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -60,7 +60,7 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>(FragmentUse
         }
     }
 
-    private fun bindUserInfo(user: User){
+    private fun bindUserInfo(user: UserPresenter){
 
         binding.apply {
             Glide.with(requireContext())
@@ -74,7 +74,7 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>(FragmentUse
     }
 
     private fun failedLoad(errorMessage:String){
-        Toast.makeText(context,"$errorMessage", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     private fun loading(isLoading:Boolean){

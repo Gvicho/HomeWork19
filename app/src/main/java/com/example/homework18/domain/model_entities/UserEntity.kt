@@ -1,6 +1,6 @@
-package com.example.homework18.presenter.common
+package com.example.homework18.domain.model_entities
 
-data class User(
+data class UserEntity(
     val id: Int,
     val email: String,
     val firstName: String,

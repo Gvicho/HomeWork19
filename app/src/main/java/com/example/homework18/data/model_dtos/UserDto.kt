@@ -1,4 +1,4 @@
-package com.example.homework18.data.model
+package com.example.homework18.data.model_dtos
 
 import com.squareup.moshi.Json
 

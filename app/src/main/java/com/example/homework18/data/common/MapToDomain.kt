@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 
-fun <Dto:Any, DomainData :Any> Flow<ResultWrapper<Dto>>.mapToDomain(mapper: (Dto) -> DomainData):Flow<ResultWrapper<DomainData>>{
+fun <Dto:Any, DomainEntity :Any> Flow<ResultWrapper<Dto>>.mapToDomain(mapper: (Dto) -> DomainEntity):Flow<ResultWrapper<DomainEntity>>{
     return this.map{ resultWrapper ->
         when(resultWrapper){
             is ResultWrapper.Success ->{

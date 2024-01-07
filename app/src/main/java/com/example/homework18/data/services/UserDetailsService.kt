@@ -1,6 +1,6 @@
 package com.example.homework18.data.services
 
-import com.example.homework18.data.model.UserDetailDto
+import com.example.homework18.data.model_dtos.UserDetailDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,5 +1,6 @@
 package com.example.homework18.presenter.homepage
 
+import android.util.Log.d
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -27,7 +28,14 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
 
     override fun setUp() {
         myAdaper = UsersRecyclerViewAdapter(this)
-        viewModel.LoadUsers()
+        ifIsLastSuccessfulLoaded()
+    }
+
+    private fun ifIsLastSuccessfulLoaded(){
+        val lastList = viewModel.usersLastSuccessLoadedList
+        if(lastList.isNotEmpty()){
+            myAdaper.submitList(viewModel.usersLastSuccessLoadedList.toMutableList())
+        }
     }
 
     override fun setBindings() {
@@ -36,6 +44,12 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
                 layoutManager = LinearLayoutManager(context)
                 adapter = myAdaper
                 setHasFixedSize(false)
+            }
+            reloadBtn.setOnClickListener{
+                viewModel.loadUsers()
+            }
+            deleteBtn.setOnClickListener{
+                viewModel.deleteAllSelected()
             }
         }
     }
@@ -71,14 +85,14 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
                         val result = it.users
                         when(result){
                             is ResultWrapper.Success -> {
-                                successLoad()
                                 result.data?.let {users ->
-                                    myAdaper.submitList(users.usersList)
+                                    d("tag123","submited ->${users.usersList}")
+                                    myAdaper.submitList(users.usersList.toMutableList())
                                 }
-
+                                setRemoveUsersBtnVisibility(it.deleteUsersButtonIsVisible)
                             }
                             is ResultWrapper.Error -> {
-                                failedLoad(result.errorMessage?:"loading error")
+                                failedLoad(result.errorMessage?:"Empty loading error")
                             }
                             is ResultWrapper.Loading -> {
                                 loading(result.loading)
@@ -91,12 +105,19 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
         }
     }
 
-    private fun successLoad(){
-        Toast.makeText(context,"Successful", Toast.LENGTH_SHORT).show()
+    private fun setRemoveUsersBtnVisibility(visibility: Boolean){
+        binding.apply {
+            if(visibility){
+                deleteBtn.visibility = View.VISIBLE
+            }else{
+                deleteBtn.visibility = View.GONE
+            }
+        }
     }
 
     private fun failedLoad(errorMessage:String){
-        Toast.makeText(context,"$errorMessage", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+        d("tag123",errorMessage)
     }
 
     private fun loading(isLoading:Boolean){
@@ -113,5 +134,13 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
 
     override fun openUsersPage(id: Int) {
         viewModel.navigateToDetailsPage(id)
+    }
+
+    override fun addUserToDeletedList(id: Int) {
+        viewModel.changeUserInDeletedList(id,true)
+    }
+
+    override fun removeUserToDeletedList(id: Int) {
+        viewModel.changeUserInDeletedList(id,false)
     }
 }
